@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcMousavi.Protos";
+
+package PersonService;
+
+import "google/protobuf/timestamp.proto";
+
+service PersonService
+{	
+	rpc CreatePerson(CreatePersonRequest) returns ( CreatePersonReply);
+
+	rpc GetAllPersons(Empty) returns (stream GetAllPersonsReply);
+
+	rpc UpdatePerson(UpdatePersonRequest) returns (UpdatePersonReply);
+
+	rpc GetPersonById(GetPersonByIdRequest) returns (GetPersonByIdReply);
+
+	rpc DeletePerson(DeletePersonRequest) returns (DeletePersonReply);
+}
+
+message Empty 
+{
+}
+
+message CreatePersonRequest
+{	
+	string name = 1 ;
+	string family = 2 ;
+	int32 nationalId = 3;
+	google.protobuf.Timestamp dateBirth=4;
+	
+}
+
+message CreatePersonReply
+{
+	int32 status=1;
+	string message=2;
+}
+message GetAllPersonsReply
+{
+	int32 id=1;
+	string name = 2;
+	string family = 3;
+	int32 nationalId = 4;
+	google.protobuf.Timestamp dateBirth=5;
+}
+
+message UpdatePersonRequest{
+	int32 id=1;	
+    string name = 2 ;
+	string family = 3 ;
+	int32 nationalId = 4;
+	google.protobuf.Timestamp dateBirth=5;
+}
+message UpdatePersonReply
+{
+	int32 status=1;
+	string message=2;	
+}
+
+message GetPersonByIdRequest
+{
+	int32 id=1;
+}
+
+message GetPersonByIdReply
+{
+	int32 id=1;	
+	string name = 2 ;
+	string family = 3 ;
+	int32 nationalId = 4;
+	google.protobuf.Timestamp dateBirth=5;
+}
+
+
+message DeletePersonRequest
+{
+	int32 id=1;
+}
+
+message DeletePersonReply
+{
+	int32 status=1;
+	string message=2;	
+}
